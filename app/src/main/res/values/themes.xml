@@ -1,0 +1,13 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme -->
+    <style name="Base.Theme.Booking_client" parent="Theme.Material3.DayNight">
+        <!-- Disable ActionBar (like NoTitleBar) -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <!-- App Theme -->
+    <style name="Theme.Booking_client" parent="Base.Theme.Booking_client" />
+
+</resources>
