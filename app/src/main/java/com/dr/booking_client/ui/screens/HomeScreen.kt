@@ -1,6 +1,8 @@
 package com.dr.booking_client.ui.screens
 
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -13,7 +15,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dr.booking_client.ui.components.SectionTitle
 import com.google.firebase.auth.FirebaseUser
@@ -29,6 +33,11 @@ fun HomeScreen(
     onLogout: () -> Unit,
     onAdminClick: () -> Unit
 ) {
+    val context = LocalContext.current
+
+
+
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -105,18 +114,24 @@ fun HomeScreen(
                         Button(
                             onClick = onBookClick,
                             modifier = Modifier.weight(1f),
+                            contentPadding = PaddingValues(horizontal = 8.dp, vertical = 6.dp),
                             colors = ButtonDefaults.buttonColors(
                                 containerColor = MaterialTheme.colorScheme.onPrimary,
                                 contentColor   = MaterialTheme.colorScheme.primary
                             ),
                             shape = RoundedCornerShape(10.dp)
                         ) {
-                            Icon(Icons.Default.CalendarToday, contentDescription = null, modifier = Modifier.size(16.dp))
-                            Spacer(Modifier.width(4.dp))
-                            Text("Book Appointment")
+//                            Icon(Icons.Default.CalendarToday, contentDescription = null, modifier = Modifier.size(14.dp))
+//                            Spacer(Modifier.width(5.dp))
+                            Text("Book Appointment",maxLines=1)
                         }
                         OutlinedButton(
-                            onClick = { /* dial */ },
+
+                            onClick = {  val intent=Intent(Intent.ACTION_DIAL).apply{
+                                data= Uri.parse("tel:+919958455304")
+                            }
+                                context.startActivity(intent)
+                                      },
                             modifier = Modifier.weight(1f),
                             border = BorderStroke(1.dp, MaterialTheme.colorScheme.onPrimary),
                             shape = RoundedCornerShape(10.dp)
@@ -233,4 +248,16 @@ fun HomeScreen(
             Spacer(Modifier.height(16.dp))
         }
     }
+}
+@Preview(showSystemUi = true, showBackground = true)
+@Composable
+fun HomeScreenPreview() {
+    HomeScreen(
+        currentUser = null, // or fake user
+        onBookClick = {},
+        onMyApptClick = {},
+        onLoginClick = {},
+        onLogout = {},
+        onAdminClick = {}
+    )
 }
